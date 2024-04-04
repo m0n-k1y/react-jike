@@ -21,7 +21,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "fix": "eslint --fix src"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +44,10 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "prettier": "^3.2.5",
     "sass": "^1.72.0"
   }
 }

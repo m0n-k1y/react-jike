@@ -21,11 +21,13 @@ const Login = () => {
     message.success('登录成功')
     //
   }
+
   return (
     <div className="login">
       <Card className="login-container">
         <img className="login-logo" src={logo} alt="" />
         {/* 登录表单 */}
+
         <Form validateTrigger="onBlur" onFinish={onFinish}>
           <Form.Item
             name="mobile"
@@ -51,6 +53,7 @@ const Login = () => {
               },
             ]}
           >
+
             <Input size="large" placeholder="请输入验证码" />
           </Form.Item>
           <Form.Item>
