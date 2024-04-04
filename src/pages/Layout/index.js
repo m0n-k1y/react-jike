@@ -1,14 +1,3 @@
-// //测试token是否成功注入
-// import { request } from "@/utils";
-// import { useEffect } from "react";
-// const Layout = () => {
-//   useEffect(() => {
-//     request.get('/user/profile')
-//   },[])
-//   return <div>Layout</div>;
-// };
-
-// export default Layout;
 import { Layout, Menu, Popconfirm } from "antd"
 import {
   HomeOutlined,
@@ -17,29 +6,37 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons"
 import "./index.scss"
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 
 const { Header, Sider } = Layout
 
 const items = [
   {
     label: "首页",
-    key: "1",
+    key: "/",
     icon: <HomeOutlined />,
   },
   {
     label: "文章管理",
-    key: "2",
+    key: "/article",
     icon: <DiffOutlined />,
   },
   {
     label: "创建文章",
-    key: "3",
+    key: "/publish",
     icon: <EditOutlined />,
   },
 ]
 
 const GeekLayout = () => {
+  //注册导航跳转
+  const navigate = useNavigate()
+  //监听点击导航按钮 
+  const onMenuClick = (route) => { 
+    console.log("点击了导航按钮", route)
+    const path = route.key
+    navigate(path)
+  }
   return (
     <Layout>
       <Header className="header">
@@ -60,6 +57,7 @@ const GeekLayout = () => {
             theme="dark"
             defaultSelectedKeys={["1"]}
             items={items}
+            onClick={onMenuClick}
             style={{ height: "100%", borderRight: 0 }}
           ></Menu>
         </Sider>
