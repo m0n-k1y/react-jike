@@ -2,18 +2,21 @@
 import { createSlice } from "@reduxjs/toolkit"
 //导入axios
 import { request } from "@/utils"
+//导入设置 token 的方法
+import { setToken as _setToken,getToken } from "@/utils"
+
 const userStore = createSlice({
   name: "user",
   //   初始值
   initialState: {
-    token: localStorage.getItem('token_key') || "",
+    token: getToken() || "",
   },
   //同步修改方法
   reducers: {
     setToken(state, action) {
       state.token = action.payload
       //localStorage存一份token
-      localStorage.setItem("token_key", action.payload)
+      _setToken(action.payload)
     },
   },
 })
