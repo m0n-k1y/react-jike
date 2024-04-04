@@ -6,7 +6,7 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons"
 import "./index.scss"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 
 const { Header, Sider } = Layout
 
@@ -37,6 +37,15 @@ const GeekLayout = () => {
     const path = route.key
     navigate(path)
   }
+
+
+
+  //反向高亮点击的导航项
+  //1.获取当前路由地址
+  const location = useLocation()
+  console.log(location.pathname);
+  const selectedKeys = location.pathname
+
   return (
     <Layout>
       <Header className="header">
@@ -55,7 +64,10 @@ const GeekLayout = () => {
           <Menu
             mode="inline"
             theme="dark"
-            defaultSelectedKeys={["1"]}
+            //默认选中的菜单项
+            //defaultSelectedKeys={["1"]}
+            //自定义选中的菜单项
+            selectedKeys={selectedKeys}
             items={items}
             onClick={onMenuClick}
             style={{ height: "100%", borderRight: 0 }}
