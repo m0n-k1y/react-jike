@@ -11,8 +11,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 // 引入action
-import { fetchUserInfo } from "@/store/modules/user"
-
+import { clearUserInfo, fetchUserInfo } from "@/store/modules/user"
 
 const { Header, Sider } = Layout
 
@@ -37,38 +36,52 @@ const items = [
 const GeekLayout = () => {
   //注册导航跳转
   const navigate = useNavigate()
-  //监听点击导航按钮 
-  const onMenuClick = (route) => { 
+  //监听点击导航按钮
+  const onMenuClick = (route) => {
     console.log("点击了导航按钮", route)
     const path = route.key
     navigate(path)
   }
 
-
-
   //反向高亮  点击的导航项
   //1.获取当前路由地址
   const location = useLocation()
-  console.log(location.pathname);
+  console.log(location.pathname)
   const selectedKeys = location.pathname
 
-  //初始化时  触发个人用户信息获取
+  //1.初始化时  触发个人用户信息获取
   const dispatch = useDispatch()
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(fetchUserInfo())
   }, [dispatch])
 
-  //获取用户信息并渲染
-  const name = useSelector(state => state.user.userInfo.name)
-  
+  //2.获取个人用户信息并渲染
+  const name = useSelector((state) => state.user.userInfo.name)
+
+  //退出登录按钮操作
+  const onConfirm = (e) => {
+    //1.清除用户信息
+    dispatch(clearUserInfo())
+    //2.跳转到登录页
+    navigate("/login")
+  }
+  const onCancel = (e) => {
+    console.log(e);
+  }
   return (
     <Layout>
       <Header className="header">
         <div className="logo" />
         <div className="user-info">
-          <span className="user-name">{ name }</span>
+          <span className="user-name">{name}</span>
           <span className="user-logout">
-            <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消">
+            <Popconfirm
+              onConfirm={onConfirm}
+              onCancel={onCancel}
+              title="是否确认退出？"
+              okText="退出"
+              cancelText="取消"
+            >
               <LogoutOutlined /> 退出
             </Popconfirm>
           </span>
