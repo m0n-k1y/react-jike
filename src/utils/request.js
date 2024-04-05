@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getToken, setToken, removeToken } from "./token"
+import { getToken, removeToken } from "./token"
 import router from "@/router"
 // 创建axios实例
 const request = axios.create({
