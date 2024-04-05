@@ -61,10 +61,17 @@ const Publish = () => {
   //上传图片回调
   const [imageList, setImageList] = useState([])
   const onChange = (value) => {
-    console.log('uploading', value) 
+    console.log("uploading", value)
     setImageList(value.fileList)
-    console.log(imageList);
-  } 
+    console.log(imageList)
+  }
+
+  //切换图片封面类型
+  const [imageType, setImageType] = useState(0)
+  const onTypeChange = (e) => {
+    // console.log(e.target.value)
+    setImageType(e.target.value)
+  }
   return (
     <div className="publish">
       <Card
@@ -81,7 +88,7 @@ const Publish = () => {
           onFinish={onFinish}
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ type: 1 }}
+          initialValues={{ type: 0 }}
         >
           <Form.Item
             label="标题"
@@ -108,23 +115,25 @@ const Publish = () => {
           {/* // 上传图片 */}
           <Form.Item label="封面">
             <Form.Item name="type">
-              <Radio.Group>
+              <Radio.Group onChange={onTypeChange}>
                 <Radio value={1}>单图</Radio>
                 <Radio value={3}>三图</Radio>
                 <Radio value={0}>无图</Radio>
               </Radio.Group>
             </Form.Item>
-            <Upload
-              name="image"
-              listType="picture-card"
-              showUploadList
-              action={"http://geek.itheima.net/v1_0/upload"}
-              onChange={onChange}
-            >
-              <div style={{ marginTop: 8 }}>
-                <PlusOutlined />
-              </div>
-            </Upload>
+            {imageType !== 0 && (
+              <Upload
+                name="image"
+                listType="picture-card"
+                showUploadList
+                action={"http://geek.itheima.net/v1_0/upload"}
+                onChange={onChange}
+              >
+                <div style={{ marginTop: 8 }}>
+                  <PlusOutlined />
+                </div>
+              </Upload>
+            )}
           </Form.Item>
 
           {/* //内容部分 */}
