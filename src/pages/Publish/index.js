@@ -29,7 +29,7 @@ const Publish = () => {
     const getChannelList = async () => {
       const res = await getChannelAPI()
       setChannelList(res.data.channels)
-      console.log(channelList)
+      // console.log(channelList)
     }
     //2. 调用函数
     getChannelList()
@@ -44,7 +44,7 @@ const Publish = () => {
       content,
       cover: {
         type: 0,
-        images: []
+        images: [],
       },
       channel_id,
     }
@@ -57,6 +57,14 @@ const Publish = () => {
         console.log(err)
       })
   }
+
+  //上传图片回调
+  const [imageList, setImageList] = useState([])
+  const onChange = (value) => {
+    console.log('uploading', value) 
+    setImageList(value.fileList)
+    console.log(imageList);
+  } 
   return (
     <div className="publish">
       <Card
@@ -97,6 +105,29 @@ const Publish = () => {
               {/* <Option value={1}>推荐</Option> */}
             </Select>
           </Form.Item>
+          {/* // 上传图片 */}
+          <Form.Item label="封面">
+            <Form.Item name="type">
+              <Radio.Group>
+                <Radio value={1}>单图</Radio>
+                <Radio value={3}>三图</Radio>
+                <Radio value={0}>无图</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Upload
+              name="image"
+              listType="picture-card"
+              showUploadList
+              action={"http://geek.itheima.net/v1_0/upload"}
+              onChange={onChange}
+            >
+              <div style={{ marginTop: 8 }}>
+                <PlusOutlined />
+              </div>
+            </Upload>
+          </Form.Item>
+
+          {/* //内容部分 */}
           <Form.Item
             label="内容"
             name="content"

@@ -46,7 +46,7 @@ const GeekLayout = () => {
   //反向高亮  点击的导航项
   //1.获取当前路由地址
   const location = useLocation()
-  console.log(location.pathname)
+  // console.log(location.pathname)
   const selectedKeys = location.pathname
 
   //1.初始化时  触发个人用户信息获取
